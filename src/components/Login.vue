@@ -20,6 +20,10 @@
                     id="password"
                     required
                  />
+
+                 <button type="button" @click="togglePasswordVisibility">
+                    {{ passwordVisible ? 'Hide' : 'Show' }}
+                 </button>
             </div>
         </form>
     </div>
