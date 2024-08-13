@@ -25,6 +25,9 @@
                     {{ passwordVisible ? 'Hide' : 'Show' }}
                  </button>
             </div>
+            <div v-if="loading" class="loading">Authenticating...</div>
+            <div v-if="error" class="error">{{ error }}</div>
+            <button type="submit" :disabled="!username || !password">Login</button>
         </form>
     </div>
 </template>
