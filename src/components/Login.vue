@@ -1,16 +1,24 @@
 <template>
-    <div>
+    <div class="login-container">
         <h2>Login</h2>
-        <form>
-            <div>
-                <label>Username</label>
-                <input type="text" id="username" required />
+        <form @submit.prevent="handleLogin">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input 
+                    v-model="username" 
+                    type="text" 
+                    id="username" 
+                    required 
+                />
             </div>
 
-            <div>
-                <label>Password</label>
+            <div class="form-group">
+                <label for="password">Password</label>
                 <input
-
+                    v-model="password"
+                    :type="passwordVisible ? 'text' : 'password'"
+                    id="password"
+                    required
                  />
             </div>
         </form>
