@@ -27,13 +27,18 @@
             </div>
             <div v-if="loading" class="loading">Authenticating...</div>
             <div v-if="error" class="error">{{ error }}</div>
-            <button type="submit" :disabled="!username || !password">Login</button>
+            <button 
+                type="submit" 
+                :disabled="!username || !password || loading"
+            >
+                Login
+            </button>
         </form>
     </div>
 </template>
 
 <script setup>
-    import { ref, reactive } from 'vue';
+    import { ref } from 'vue';
     import { useRouter } from 'vue-router';
 
     const username = ref('');
