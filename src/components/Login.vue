@@ -31,4 +31,26 @@
     const togglePasswordVisibility = () => {
         passwordVisible.value = !passwordVisible;
     };
+
+    const handleLogin = async () => {
+        if (!username.value || !password.value) {
+            error.value = 'Username and password are required';
+            return;
+        }
+
+        loading.value = true;
+        error.value = '';
+
+        try {
+            const response = await fetch('https://fakestoreapi.com/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type' : 'application/json'},
+                body: JSON.stringify({
+                    username:value,
+                    password: password.value,
+                }),
+            });
+            
+        }
+    }
 </script>
