@@ -61,14 +61,15 @@
                 method: 'POST',
                 headers: { 'Content-Type' : 'application/json'},
                 body: JSON.stringify({
-                    username:value,
+                    username: username.value,
                     password: password.value,
                 }),
             });
             
-            const data = await response.json();
+            
 
             if (response.ok) {
+                const data = await response.json();
                 localStorage.setItem('token', data.token);
                 const redirectPath = router.currentRoute.value.query.redirect || '/';
                 router.push(redirectPath);
