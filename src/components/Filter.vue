@@ -56,7 +56,7 @@
     const sortOption = ref(props.appliedFilters.sortOption || '');
     const reset = ref(0);
 
-    const emit = defineEmits(['filter-change']);
+    const emit = defineEmits(['filter-sort-change']);
 
     /**
      * Fetches categories from the API and updates the categories list.
