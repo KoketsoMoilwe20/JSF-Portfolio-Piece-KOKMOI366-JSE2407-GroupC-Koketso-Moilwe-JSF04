@@ -32,7 +32,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
     import { ref, reactive } from 'vue';
     import { useRouter } from 'vue-router';
 
@@ -44,7 +44,7 @@
     const router = useRouter();
 
     const togglePasswordVisibility = () => {
-        passwordVisible.value = !passwordVisible;
+        passwordVisible.value = !passwordVisible.value;
     };
 
     const handleLogin = async () => {
@@ -83,3 +83,7 @@
         }
     };
 </script>
+
+<style scoped>
+
+</style>
