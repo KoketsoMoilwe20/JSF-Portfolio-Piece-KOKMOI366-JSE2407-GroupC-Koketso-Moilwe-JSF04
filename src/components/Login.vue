@@ -60,6 +60,11 @@
             } else {
                 error.value = 'Invalid username or password';
             }
-        } 
-    }
+        } catch (e) {
+            error.value = 'An error occurred while logging in';
+
+        } finally {
+            loading.value = false;
+        }
+    };
 </script>
