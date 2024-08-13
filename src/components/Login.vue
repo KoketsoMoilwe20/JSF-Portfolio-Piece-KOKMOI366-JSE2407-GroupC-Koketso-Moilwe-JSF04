@@ -51,6 +51,15 @@
                 }),
             });
             
-        }
+            const data = await response.json();
+
+            if (response.ok) {
+                localStorage.setItem('token', data.token);
+                const redirectPath = router.currentRoute.value.query.redirect || '/';
+                router.push(redirectPath);
+            } else {
+                error.value = 'Invalid username or password';
+            }
+        } 
     }
 </script>
