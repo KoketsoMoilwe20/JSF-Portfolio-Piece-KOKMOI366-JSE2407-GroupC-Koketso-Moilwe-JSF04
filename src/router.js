@@ -8,7 +8,8 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        component: ProductGrid
+        component: ProductGrid,
+        meta: {requiresAuth: true}
     },
     {
         path: '/product/:id',
