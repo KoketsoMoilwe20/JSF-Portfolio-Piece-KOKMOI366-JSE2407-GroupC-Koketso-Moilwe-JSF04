@@ -22,6 +22,7 @@
   };
 
   onMounted(() => {
+    checkAuth();
     console.log("app component mounted")
   })
     
