@@ -36,7 +36,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/login" class="nav-link">Login</a>
+                            <a v-if="!isLoggedIn" href="/login" class="nav-link">Login</a>
+                            <a v-else href="#" @click.prevent="logout" class="nav-link">Logout</a>
                         </li>
                     </ul>
                 </div>
