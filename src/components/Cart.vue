@@ -22,5 +22,8 @@
 
 <script setup>
     import {ref, onMounted} from 'vue';
+
+    const cartItems = ref([]);
+    const totalCost = ref(0);
     
 </script>
