@@ -58,4 +58,9 @@
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         loadCart();
     };
+
+    const clearCart = () => {
+        localStorage.removeItem('cart');
+        loadCart();
+    };
 </script>
