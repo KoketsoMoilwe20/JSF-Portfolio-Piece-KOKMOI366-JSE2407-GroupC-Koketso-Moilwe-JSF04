@@ -40,5 +40,15 @@
         updateTotalCost();
     };
 
+    const updateQuantity = (item, newQuantity) =>  {
+        if (newQuantity <= 0) {
+            removeFromCart(item);
 
+        } else {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const updatedCart = cart.map(cartItem => cartItem.id === item.id ? {...cartItem, quantity: newQuantity} : cartItem);
+            localStorage.setItem('cart', JSON.stringify(updatedCart));
+            loadCart();
+        }
+    };
 </script>
