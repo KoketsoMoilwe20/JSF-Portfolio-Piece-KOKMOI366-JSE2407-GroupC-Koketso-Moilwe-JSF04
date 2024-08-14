@@ -53,6 +53,7 @@
     const router = useRouter();
     const isNavbarOpen = ref(false);
     const isLoggedIn = ref(false);
+    const cartCount = ref(0);
 
     const toggleNavbar = () => {
         isNavbarOpen.value = !isNavbarOpen.value;
@@ -60,6 +61,11 @@
 
     const checkLoginStatus = () => {
         isLoggedIn.value = !!localStorage.getItem('token');
+    };
+
+    const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartCount.value = cart.reduce((total, item) => total + item.quantity, 0);
     };
 
     const logout = () => {
@@ -70,7 +76,13 @@
 
     onMounted(() => {
         checkLoginStatus();
+        updateCartCount();
     });
+
+    //watch for changes in localStorage to update the cart count
+    window.addEventListener('storage', () => {
+        updateCartCount();
+    })
 </script>
 
 <style scoped>
