@@ -45,22 +45,31 @@
     </header>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            isNavbarOpen: false //State to control visibility of the mobile menu
-        }
-    },
-    methods: {
-       /**
-         * Toggles the visibility of the mobile navigation menu.
-         */
-        toggleNavbar() {
-            this.isNavbarOpen = !this.isNavbarOpen
-        }
-    }
-}
+<script setup>
+    import {ref, onMounted} from 'vue';
+    import { useRouter } from 'vue-router';
+
+    const router = useRouter();
+    const isNavbarOpen = ref(false);
+    const isLoggedIn = ref(false);
+
+    const toggleNavbar = () => {
+        isNavbarOpen.value = !isNavbarOpen.value;
+    };
+
+    const checkLoginStatus = () => {
+        isLoggedIn.value = !!localStorage.getItem('token');
+    };
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        isLoggedIn.value = false;
+        router.push('/login');
+    };
+
+    onMounted(() => {
+        checkLoginStatus();
+    });
 </script>
 
 <style scoped>
