@@ -26,4 +26,10 @@
     const cartItems = ref([]);
     const totalCost = ref(0);
     
+    const loadCart = () => {
+        cartItems.value = JSON.parse(localStorage.getItem('cart')) || [];
+        updateTotalCost();
+    };
+
+    
 </script>
