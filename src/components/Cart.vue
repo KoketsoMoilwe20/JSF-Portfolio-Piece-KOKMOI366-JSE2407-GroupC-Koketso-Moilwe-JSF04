@@ -1,22 +1,31 @@
 <template>
-    <div>
+    <div class="cart">
         <h2>Your Shopping Cart</h2>
-        <div>
+        <div v-if="cartItems.length === 0">
             Your cart is empty...
         </div>
-        <div>
-            <img :src="product.image" alt="Product Image">
-            <div>
-                <h3>{{ product.title }}</h3>
-                <p>${{ product.price }}</p>
+
+    <div v-else>
+        <div class="cart-item" v-for="item in cartItems" :key="item.id">
+            <img :src="item.image" alt="Product Image" class="cart-item-image">
+            <div class="cart-item-info">
+                <h3>{{ item.title }}</h3>
+                <p>${{ item.price }}</p>
+
+                <div class="quantity-control">
+                    <button>-</button>
+                    <span>{{ item.quantity }}</span>
+                    <button>+</button>
+                </div>
+
                 <button>Remove</button>
             </div>
         </div>
-        <div>
-            <p>Total Items: </p>
-            <p>Total Cost: </p>
+            <div class="cart-summary">
+                <h3>Total: ${{ totalCost }}</h3>
+                <button>Clear Cart</button>
+            </div>
         </div>
-        <button>Clear Cart</button>
     </div>
 </template>
 
@@ -31,5 +40,5 @@
         updateTotalCost();
     };
 
-    
+
 </script>
