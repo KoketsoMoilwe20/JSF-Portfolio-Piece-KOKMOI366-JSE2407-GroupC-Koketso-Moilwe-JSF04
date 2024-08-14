@@ -76,8 +76,7 @@
             if (response.ok) {
                 const data = await response.json();
                 localStorage.setItem('token', data.token);
-                const redirectPath = router.currentRoute.value.query.redirect || '/';
-                router.push(redirectPath);
+                router.push('/');
             } else {
                 error.value = 'Invalid username or password';
             }
