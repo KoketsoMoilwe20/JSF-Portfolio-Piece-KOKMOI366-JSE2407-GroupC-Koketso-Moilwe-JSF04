@@ -18,7 +18,7 @@
                     <button @click="updateQuantity(item, item.quantity + 1)">+</button>
                 </div>
 
-                <button>Remove</button>
+                <button @click="removeFromCart(item)">Remove</button>
             </div>
         </div>
             <div class="cart-summary">
@@ -50,5 +50,12 @@
             localStorage.setItem('cart', JSON.stringify(updatedCart));
             loadCart();
         }
+    };
+
+    const removeFromCart = (item) => {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        const updatedCart = cart.filter(cartItem => cartItem.id !== item.id);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        loadCart();
     };
 </script>
