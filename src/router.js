@@ -25,6 +25,18 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes
-})
+});
+
+router.beforeEach((to, from, next) => {
+    const isAuthenticated = !!localStorage.getItem('token');
+    
+    if (to.meta.requiresAuth && !isAuthenticated) {
+      next({ name: 'Login' });
+    } else if (to.name === 'Login' && isAuthenticated) {
+      next({ name: 'ProductGrid' });
+    } else {
+      next();
+    }
+  });
 
 export default router
