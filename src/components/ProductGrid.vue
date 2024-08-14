@@ -22,7 +22,7 @@
                   </span>
                   <span>({{ product.rating.count }})</span>
                 </div>
-                <button>Add To Cart</button>
+                <button @click="addToCart(product)">Add To Cart</button>
             </div>
         </div>
     </div>
@@ -125,6 +125,20 @@
       }
       return result;
     });
+
+    const addToCart = (product) => {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+      if (existingProductIndex >= 0) {
+        cart[existingProductIndex].quantity += 1;
+      } else {
+        cart.push({...product, quantity: 1});
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert('Product added to cart!');
+    };
 
     onMounted(() => {
       fetchProducts();
