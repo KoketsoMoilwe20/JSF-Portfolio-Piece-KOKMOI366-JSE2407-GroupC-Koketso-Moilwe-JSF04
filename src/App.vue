@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header />
+    <Header v-if="isAuthenticated"/>
     <router-view></router-view>
   </div>
   
@@ -25,5 +25,7 @@
     checkAuth();
     console.log("app component mounted")
   })
+
+  watch(() => router.currentRoute.value, checkAuth);
     
 </script>
