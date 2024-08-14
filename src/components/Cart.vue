@@ -23,7 +23,7 @@
         </div>
             <div class="cart-summary">
                 <h3>Total: ${{ totalCost }}</h3>
-                <button>Clear Cart</button>
+                <button @click="clearCart">Clear Cart</button>
             </div>
         </div>
     </div>
@@ -67,4 +67,6 @@
     const updateTotalCost = () => {
         totalCost.value = cartItems.value.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
     }
+
+    onMounted(loadCart);
 </script>
