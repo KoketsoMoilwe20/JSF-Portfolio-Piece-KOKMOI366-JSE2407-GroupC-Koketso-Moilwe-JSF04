@@ -13,9 +13,9 @@
                 <p>${{ item.price }}</p>
 
                 <div class="quantity-control">
-                    <button>-</button>
+                    <button @click="updateQuantity(item, item.quantity - 1)">-</button>
                     <span>{{ item.quantity }}</span>
-                    <button>+</button>
+                    <button @click="updateQuantity(item, item.quantity + 1)">+</button>
                 </div>
 
                 <button>Remove</button>
