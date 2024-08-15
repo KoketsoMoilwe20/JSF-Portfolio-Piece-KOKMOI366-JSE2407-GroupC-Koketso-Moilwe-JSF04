@@ -85,3 +85,53 @@
         loadCart();
     })
 </script>
+
+<style scoped>
+    .cart {
+        padding: 1rem;
+    }
+
+    .cart-item {
+        display: flex;
+        margin-bottom: 1rem;
+    }
+
+    .cart-item-image {
+        width: 100px;
+        height: 100px;
+        object-fit: contain;
+    }
+
+    .cart-item-info {
+        margin-left: 1rem;
+        flex-grow: 1;
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+    }
+
+    .quantity-control button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        padding: 0.5rem;
+        margin: 0 0.5rem;
+        cursor: pointer;
+    }
+
+    .cart-summary {
+        margin-top: 1rem;
+    }
+
+    .cart-summary button {
+        background-color: #d9534f; 
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
+</style>
