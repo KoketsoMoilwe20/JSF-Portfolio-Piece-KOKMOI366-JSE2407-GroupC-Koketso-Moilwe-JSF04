@@ -35,6 +35,10 @@
         <!-- Product Category -->
         <p class="category">Category: {{ product.category }}</p>
 
+        <!-- Add To Cart Button -->
+
+        <button @click="addToCart" class="add-to-cart-button">Add to Cart</button>
+
         <!-- Button to navigate back to the product list -->
         <button @click="goBack" class="back-button">Back To Products</button>
     </div>
@@ -47,7 +51,7 @@
 </template>
 
 <script setup>
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
     import { useRoute, useRouter } from 'vue-router';
 
 
@@ -55,6 +59,28 @@
     const product = ref(null) 
     const loading = ref(true)
     const route = useRoute()
+
+    const addToCart = () => {
+        if (!product.value) return;
+
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingItem = cart.find(item => item.id === product.value.id);
+
+    if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+            id: product.value.id,
+            title: product.value.title,
+            price: product.value.price,
+            image: product.value.image,
+            quantity: 1
+        });
+  }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Product added to cart!');
+    }
 
 
     /**
