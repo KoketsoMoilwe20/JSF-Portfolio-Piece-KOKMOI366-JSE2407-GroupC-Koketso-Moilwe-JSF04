@@ -3,7 +3,7 @@
     <div class="product-grid">
       <div v-if="loading">Loading...</div>
         <div v-else class="grid">
-            <div v-for="product in sortedAndFilteredProducts" :key="product.id" class="product-card" @click="viewProduct(product.id)">
+            <div v-for="product in sortedAndFilteredProducts"   :key="product.id" class="product-card" @click="viewProduct(product.id)">
                 <img :src="product.image" class="product-image">
                 <h3>{{ product.title }}</h3>
                 <h4 class="product-category">{{ product.category }}</h4>
@@ -22,7 +22,7 @@
                   </span>
                   <span>({{ product.rating.count }})</span>
                 </div>
-                <button @click="addToCart(product)">Add To Cart</button>
+                <button @click.stop="addToCart(product)">Add To Cart</button>
             </div>
         </div>
     </div>
