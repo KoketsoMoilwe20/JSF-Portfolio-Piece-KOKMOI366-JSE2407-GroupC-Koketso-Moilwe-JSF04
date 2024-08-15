@@ -80,5 +80,8 @@
         totalCost.value = cartItems.value.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
     }
 
-    onMounted(loadCart);
+    onMounted(() => {
+        decodeUserId();
+        loadCart();
+    })
 </script>
