@@ -2,6 +2,7 @@ import ProductGrid from './components/ProductGrid.vue'
 import ProductDetails from './components/ProductDetails.vue'
 import Login from './components/Login.vue'
 import Cart from './components/Cart.vue'
+import ComparisonList from './components/ComparisonList.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -27,6 +28,11 @@ const routes = [
         component: Cart,
         meta: {requiresAuth: true} //protecting cart route
     },
+    {
+      path: '/comparison',
+      name: 'ComparisonList',
+      component: ComparisonList,
+    }
 ]
 
 const router = createRouter({
