@@ -49,7 +49,6 @@
 <script setup>
     import {ref, onMounted} from 'vue';
     import { useRouter } from 'vue-router';
-    import { eventBus } from '../eventBus';
 
     const router = useRouter();
     const isNavbarOpen = ref(false);
@@ -64,6 +63,10 @@
         isLoggedIn.value = !!localStorage.getItem('token');
     };
 
+    const updateCartCount = () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        cartCount.value = cart.reduce((total, item) => total + item.quantity, 0);
+    };
 
     const logout = () => {
         localStorage.removeItem('token');
@@ -73,14 +76,13 @@
 
     onMounted(() => {
         checkLoginStatus();
-        cartCount.value = JSON.parse(localStorage.getItem('cart'))?.length || 0;
-
-        eventBus.updateCartCount(cartCount.value);
+        updateCartCount();
     });
 
-    eventBus.$on('update-cart', (newCount) => {
-        cartCount.value = newCount;
-    });
+    //watch for changes in localStorage to update the cart count
+    window.addEventListener('storage', () => {
+        updateCartCount();
+    })
 </script>
 
 <style scoped>
