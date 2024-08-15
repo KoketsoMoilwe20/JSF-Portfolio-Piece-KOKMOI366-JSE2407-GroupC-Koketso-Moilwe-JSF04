@@ -61,6 +61,8 @@
             const updatedCart = cart.map(cartItem => cartItem.id === item.id ? {...cartItem, quantity: newQuantity} : cartItem);
             localStorage.setItem('cart', JSON.stringify(updatedCart));
             loadCart();
+
+            window.dispatchEvent(new CustomEvent('update-cart-count'));
         }
     };
 
@@ -69,11 +71,15 @@
         const updatedCart = cart.filter(cartItem => cartItem.id !== item.id);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
         loadCart();
+
+        window.dispatchEvent(new CustomEvent('update-cart-count'));
     };
 
     const clearCart = () => {
         localStorage.removeItem('cart');
         loadCart();
+
+        window.dispatchEvent(new CustomEvent('update-cart-count'));
     };
 
     const updateTotalCost = () => {
