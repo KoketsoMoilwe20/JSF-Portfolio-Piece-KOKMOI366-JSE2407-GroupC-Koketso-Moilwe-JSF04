@@ -31,9 +31,21 @@
 
 <script setup>
     import {ref, onMounted} from 'vue';
+    import { jwtDecode } from 'jwt-decode';
 
     const cartItems = ref([]);
     const totalCost = ref(0);
+    let userId = null;
+
+    //Decoding the JWT to get the userId
+    const decodeUserId = () => {
+        const token = localStorage.getItem('token');
+
+        if(token) {
+            const decoded = jwtDecode(token);
+            userId = decoded.userId; 
+        }
+    };
     
     const loadCart = () => {
         cartItems.value = JSON.parse(localStorage.getItem('cart')) || [];
