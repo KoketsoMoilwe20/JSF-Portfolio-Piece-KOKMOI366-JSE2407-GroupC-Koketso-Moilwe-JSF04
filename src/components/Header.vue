@@ -69,8 +69,14 @@
     };
 
     const logout = () => {
+        //clearing the JWT from local storage
         localStorage.removeItem('token');
+
+        //Reset
         isLoggedIn.value = false;
+        // userId.value = null; //Reset the userId
+
+        //Redirect to the login page
         router.push('/login');
     };
 
