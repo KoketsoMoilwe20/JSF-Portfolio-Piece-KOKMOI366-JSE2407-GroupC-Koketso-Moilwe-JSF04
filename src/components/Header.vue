@@ -35,6 +35,16 @@
                                 </svg>
                             </a>
                         </li>
+
+                        <!-- Comparison -->
+                         <li class="nav-item comparison-item">
+                            <a href="/comparison" class="comparison-link">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="comparison-icon">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 5.25V18.75M7.5 8.25h9M7.5 12h9m-9 3.75h9M7.5 5.25A2.25 2.25 0 019.75 3h4.5A2.25 2.25 0 0116.5 5.25v13.5A2.25 2.25 0 0114.25 21h-4.5A2.25 2.25 0 017.5 18.75V5.25z" />
+                                </svg>
+                            </a>
+                         </li>
+
                         <li class="nav-item">
                             <a v-if="!isLoggedIn" href="/login" class="nav-link">Login</a>
                             <a v-else href="#" @click.prevent="logout" class="nav-link">Logout</a>
@@ -175,6 +185,7 @@
 .cart-item {
     display: block;
     position: relative;
+    margin-right: 1rem;
 }
 
 .cart-badge {
@@ -192,7 +203,7 @@
     font-size: 0.75rem;
 }
 
-.cart-icon {
+.cart-icon, .comparison-icon {
     width: 1.5rem;
     height: 1.5rem;
     color: white;
