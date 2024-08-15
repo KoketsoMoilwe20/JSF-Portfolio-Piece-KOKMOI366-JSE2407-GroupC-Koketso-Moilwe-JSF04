@@ -40,6 +40,7 @@
 <script setup>
     import { ref } from 'vue';
     import { useRouter } from 'vue-router';
+    import { jwtDecode } from 'jwt-decode';
 
     const username = ref('');
     const password = ref('');
@@ -75,7 +76,18 @@
 
             if (response.ok) {
                 const data = await response.json();
-                localStorage.setItem('token', data.token);
+                const token = data.token;
+
+                //Storing the JWT in local storage
+                localStorage.setItem('token', token);
+
+                //Decode the token to get the user ID
+                const decodedToken = jwtDecode(token);
+                const userId = decodedToken.userId;
+
+                //Store the user ID in local storage for reference
+                localStorage.setItem('userId', userId);
+
                 router.push('/');
             } else {
                 error.value = 'Invalid username or password';
