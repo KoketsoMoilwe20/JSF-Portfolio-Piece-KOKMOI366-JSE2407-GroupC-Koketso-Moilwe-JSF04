@@ -137,7 +137,10 @@
       }
 
       localStorage.setItem('cart', JSON.stringify(cart));
-      alert('Product added to cart!');
+      
+      //Emitting a custom event to update the cart count
+      const event = new Event('update-cart-count');
+      window.dispatchEvent(event);
     };
 
     onMounted(() => {
