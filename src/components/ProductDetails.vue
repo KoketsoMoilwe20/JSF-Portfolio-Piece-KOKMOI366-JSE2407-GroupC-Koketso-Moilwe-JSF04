@@ -79,7 +79,9 @@
   }
 
         localStorage.setItem('cart', JSON.stringify(cart));
-        alert('Product added to cart!');
+        // alert('Product added to cart!');
+
+        window.dispatchEvent(new CustomEvent('update-cart-count'));
     }
 
 
