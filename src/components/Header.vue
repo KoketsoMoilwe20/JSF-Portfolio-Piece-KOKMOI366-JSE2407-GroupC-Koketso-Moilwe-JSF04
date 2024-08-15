@@ -77,12 +77,12 @@
     onMounted(() => {
         checkLoginStatus();
         updateCartCount();
+
+        //Listen for custom event to update the cart count
+        window.addEventListener('update-cart-count', updateCartCount)
     });
 
-    //watch for changes in localStorage to update the cart count
-    window.addEventListener('storage', () => {
-        updateCartCount();
-    })
+    window.addEventListener('storage', updateCartCount);
 </script>
 
 <style scoped>
