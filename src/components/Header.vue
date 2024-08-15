@@ -71,6 +71,7 @@
     const logout = () => {
         //clearing the JWT from local storage
         localStorage.removeItem('token');
+        localStorage.removeItem('cart'); //clear the cart data from local storage
 
         //Reset
         isLoggedIn.value = false;
