@@ -34,5 +34,14 @@
         loadComparisonList();
     }
 
+    //Clear comparison list
+    const clearComparison = () => {
+    localStorage.removeItem('comparison');
+    loadComparisonList();
+    };
+
+    //Loading comparison list on component mount
+    loadComparisonList();
+
     
 </script>
