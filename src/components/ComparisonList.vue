@@ -27,5 +27,12 @@
         comparedProducts.value = JSON.parse(localStorage.getItem('comparison')) || [];
     };
 
+    //Removing a product from the comparison list
+    const removeFromComparison = (productId) => {
+        const updatedComparison = comparedProducts.value.filter(product => product.id !== productId);
+        localStorage.setItem('comparison', JSON.stringify(updatedComparison));
+        loadComparisonList();
+    }
+
     
 </script>
