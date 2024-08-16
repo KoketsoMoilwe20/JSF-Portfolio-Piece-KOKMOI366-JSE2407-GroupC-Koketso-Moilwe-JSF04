@@ -9,14 +9,16 @@
 
         <!-- Displaying products side by side for comparison -->
         <div v-else class="comparison-table">
-            <div clas="product-comparison">
-                <img class="product-image">
-                <h3></h3>
-                <p>Price: </p>
-                <p>Category: </p>
-                <button class="remove-button">Remove</button>
+            <div v-for="product in comparedProducts" :key="product.id" class="product-comparison">
+                <img :src="product.image" alt="Product Image" class="product-image">
+                <h3>{{ product.title }}</h3>
+                <p>Price: ${{ product.price }}</p>
+                <p>Category: {{ product.category }}</p>
+                <button @click="removeFromComparison(product.id)" class="remove-button">Remove</button>
             </div>
         </div>
+
+        
 
     </div>
 </template>
