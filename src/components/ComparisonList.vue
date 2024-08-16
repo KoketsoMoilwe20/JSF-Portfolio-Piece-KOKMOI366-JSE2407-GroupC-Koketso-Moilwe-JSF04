@@ -18,7 +18,10 @@
             </div>
         </div>
 
-        
+        <!-- Clear the comparison list -->
+         <button v-if="comparedProducts.length > 0" @click="clearComparison" class="clear-button">
+            Clear Comparison
+         </button>
 
     </div>
 </template>
