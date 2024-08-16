@@ -15,3 +15,17 @@
 
     </div>
 </template>
+
+<script setup>
+    import { ref } from 'vue';
+
+    // Array to hold the products being displayed
+    const comparedProducts = ref([]);
+
+    // Load comparison list from localStorage
+    const loadComparisonList = () => {
+        comparedProducts.value = JSON.parse(localStorage.getItem('comparison')) || [];
+    };
+
+    
+</script>
