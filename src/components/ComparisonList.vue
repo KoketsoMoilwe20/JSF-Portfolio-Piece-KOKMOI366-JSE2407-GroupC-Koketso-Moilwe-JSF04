@@ -2,8 +2,13 @@
     <div>
         <h2>Comparison List</h2>
 
+        <!-- Display message if comparison list is empty -->
+         <div v-if="comparedProducts.length ===0">
+            No products added to the comparison list
+         </div>
+
         <!-- Displaying products side by side for comparison -->
-        <div>
+        <div v-else class="comparison-table">
             <div clas="product-comparison">
                 <img class="product-image">
                 <h3></h3>
