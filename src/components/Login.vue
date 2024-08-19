@@ -83,7 +83,7 @@
 
                 //Decode the token to get the user ID
                 const decodedToken = jwtDecode(token);
-                const userId = decodedToken.userId;
+                const userId = decodedToken.sub;
 
                 //Store the user ID in local storage for reference
                 localStorage.setItem('userId', userId);
