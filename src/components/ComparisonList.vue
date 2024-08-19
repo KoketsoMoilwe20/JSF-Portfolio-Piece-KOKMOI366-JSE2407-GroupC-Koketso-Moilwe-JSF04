@@ -2,6 +2,11 @@
     <div class="comparison-container">
         <h2 class="comparison-title">Comparison List</h2>
 
+        <!-- Back Button -->
+         <button @click="goBack" class="back-button">
+          Back
+         </button>
+
         <!-- Display message if comparison list is empty -->
          <div v-if="comparedProducts.length ===0" class="empty-message">
             No products added to the comparison list
@@ -47,9 +52,18 @@
 
 <script setup>
     import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
     // Array to hold the products being displayed
     const comparedProducts = ref([]);
+
+    // Access Router
+    const router = useRouter();
+
+    // Function to navigate back to the last viewed page
+    const goBack = () => {
+      router.back();
+    };
 
     // Load comparison list from localStorage
     const loadComparisonList = () => {
