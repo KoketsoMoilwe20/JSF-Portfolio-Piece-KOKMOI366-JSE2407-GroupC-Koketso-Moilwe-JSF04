@@ -9,17 +9,31 @@
 
         <!-- Displaying products side by side for comparison -->
          <div v-else class="comparison-table-container">
-            <div class="comparison-table">
-            <div v-for="product in comparedProducts" :key="product.id" class="product-column">
-                <div class="product-card">
+           <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Description</th>
+                  <th>Rating</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="product in comparedProducts" :key="product.id">
+                  <td>
                     <img :src="product.image" alt="Product Image" class="product-image">
                     <h3 class="product-title">{{ product.title }}</h3>
-                    <p class="product-price">Price: ${{ product.price }}</p>
-                    <p class="product-category">Category: {{ product.category }}</p>
-                    <button @click="removeFromComparison(product.id)" class="remove-button">Remove</button>
-                </div>
-            </div>
-        </div>
+                  </td>
+                  <td>${{ product.price }}</td>
+                  <td>{{ product.category }}</td>
+                  <td>{{ product.description }}</td>
+                  <td>{{ product.rating.rate }} ({{ product.rating.count }}) reviews</td>
+                  <td><button @click="removeFromComparison(product.id)" class="remove-button">Remove</button></td>
+                </tr>
+              </tbody>
+           </table>
          </div>
         
 
@@ -86,39 +100,25 @@
 }
 
 .comparison-table {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.product-column {
-    flex: 1 0 200px;
-    max-width: 300px;
-}
-
-.product-card {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 1.5rem;
-    transition: transform 0.3s ease;
-}
-
-.product-card:hover {
-  transform: translateY(-5px);
+.comparison-table th,
+.comparison-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 .product-image {
   width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 1rem;
+  height: auto;
+  margin-bottom: 0.5rem;
 }
 
 .product-title {
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
   color: #333;
 }
 
