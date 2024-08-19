@@ -39,6 +39,9 @@
 
         <button @click="addToCart" class="add-to-cart-button">Add to Cart</button>
 
+        <!-- New button to add to comparison list -->
+        <button @click="addToComparison">Compare</button>
+
         <!-- Button to navigate back to the product list -->
         <button @click="goBack" class="back-button">Back To Products</button>
     </div>
@@ -83,6 +86,29 @@
 
         window.dispatchEvent(new CustomEvent('update-cart-count'));
     }
+
+    const max_comparison = 5; //maximum number
+
+    const addToComparison = () => {
+        let comparison = JSON.parse(localStorage.getItem('comparison')) || [];
+  
+        // Check if the product is already in the comparison list
+        if (comparison.find(item => item.id === product.value.id)) {
+        alert('Product is already in the comparison list.');
+        return;
+    }
+
+    // Check if the limit has been reached
+    if (comparison.length >= max_comparison) {
+        alert(`You can only compare up to ${max_comparison} products.`);
+        return;
+    }
+
+    // Add the product to the comparison list
+    comparison.push(product.value);
+    localStorage.setItem('comparison', JSON.stringify(comparison));
+    alert('Product added to comparison list!');
+};
 
 
     /**
