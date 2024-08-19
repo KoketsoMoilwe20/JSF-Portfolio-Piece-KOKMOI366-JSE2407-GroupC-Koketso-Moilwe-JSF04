@@ -32,6 +32,7 @@ const routes = [
       path: '/comparison',
       name: 'ComparisonList',
       component: ComparisonList,
+      meta: {requiresAuth: true} //protect comparison route
     }
 ]
 
