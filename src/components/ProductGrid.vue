@@ -23,6 +23,11 @@
                   <span>({{ product.rating.count }})</span>
                 </div>
                 <button @click.stop="addToCart(product)">Add To Cart</button>
+
+                <!-- Compare button -->
+                <button @click.stop="addToCompare(product)" class="compare-button">
+                  <i class="fas fa-balance-scale"></i> Compare
+                </button>
             </div>
         </div>
     </div>
@@ -75,6 +80,7 @@
          }
         });
     };
+
 
      /**
      * Handles changes in filter and sort options.
@@ -240,7 +246,7 @@
   color: #000;
 }
 
-.product-card button {
+/* .product-card button {
   background-color: #4caf50; 
   color: white;
   border: none;
@@ -253,7 +259,7 @@
 
 .product-card button:hover {
   background-color: #45a049; 
-}
+} */
 
 .ratings {
     display: flex;
@@ -280,6 +286,28 @@
     font-size: 0.875rem;
     color: #7a7a7a;
     margin-left: 0.5rem;
+}
+
+.compare-button {
+    background-color: #E5989B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.compare-button i {
+    margin-right: 8px;
+}
+
+.compare-button:hover {
+    background-color: #6D6875;
 }
 
 </style>
