@@ -39,6 +39,7 @@
                         <!-- Comparison -->
                          <li class="nav-item comparison-item">
                             <a href="/comparison" class="comparison-link">
+                                <div v-if="comparisonCount" class="comparison-badge">{{ comparisonCount }}</div>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="comparison-icon">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 5.25V18.75M7.5 8.25h9M7.5 12h9m-9 3.75h9M7.5 5.25A2.25 2.25 0 019.75 3h4.5A2.25 2.25 0 0116.5 5.25v13.5A2.25 2.25 0 0114.25 21h-4.5A2.25 2.25 0 017.5 18.75V5.25z" />
                                 </svg>
@@ -64,6 +65,7 @@
     const isNavbarOpen = ref(false);
     const isLoggedIn = ref(false);
     const cartCount = ref(0);
+    const comparisonCount = ref(0);
 
     const toggleNavbar = () => {
         isNavbarOpen.value = !isNavbarOpen.value;
@@ -77,6 +79,11 @@
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         cartCount.value = cart.reduce((total, item) => total + item.quantity, 0);
     };
+
+    const updateComparisonCount = () => {
+        const comparison = JSON.parse(localStorage.getItem('comparison')) || [];
+        comparisonCount.value = comparison.length;
+    }
 
     const logout = () => {
         //clearing the JWT from local storage
@@ -94,9 +101,11 @@
     onMounted(() => {
         checkLoginStatus();
         updateCartCount();
+        updateComparisonCount();
 
         //Listen for custom event to update the cart count
-        window.addEventListener('update-cart-count', updateCartCount)
+        window.addEventListener('update-cart-count', updateCartCount);
+        window.addEventListener('update-comparison-count', updateComparisonCount);
     });
 
     window.addEventListener('storage', updateCartCount);
@@ -182,13 +191,14 @@
   margin-bottom: 0.5rem;
 }
 
-.cart-item {
+.cart-item,
+.comparison-item {
     display: block;
     position: relative;
-    margin-right: 1rem;
 }
 
-.cart-badge {
+.cart-badge,
+.comparison-badge {
     position: absolute;
     top: -0.5rem;
     left: 0.75rem;
