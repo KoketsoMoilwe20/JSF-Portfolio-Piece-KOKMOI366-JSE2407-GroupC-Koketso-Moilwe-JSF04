@@ -26,10 +26,11 @@
     import { syncWishlist, fetchWishlist, fetchProducts } from '../api';
 
     const router = useRouter();
-    const wishlist = ref([]);
+    const wishlist = ref(JSON.parse(localStorage.getItem('wishlist')) || [])
+    const wishlistCount = ref(wishlist.value.length);
     const appliedFilters = ref({});
     const userId = ref('user123'); // In a real app, this would come from authentication
-const allProducts = ref([]);
+    const allProducts = ref([]);
 
     const filteredWishlist = computed(() => {
     return wishlist.value.filter(product => {
@@ -66,16 +67,16 @@ const handleFilterSortChange = (filters) => {
 
     const removeFromWishlist = async (id) => {
         wishlist.value = wishlist.value.filter(product => product.id !== id);
-        await saveWishlist();
-  window.dispatchEvent(new CustomEvent('update-wishlist-count'));
+    localStorage.setItem('wishlist', JSON.stringify(wishlist.value)); // Update local storage directly
+    window.dispatchEvent(new CustomEvent('update-wishlist-count')); // Dispatch event
     };
 
     const clearWishlist = async () => {
         if (confirm('Are you sure you want to clear your entire wishlist?')) {
-    wishlist.value = [];
-    await saveWishlist();
-    window.dispatchEvent(new CustomEvent('update-wishlist-count'));
-  }
+        wishlist.value = [];
+        localStorage.setItem('wishlist', JSON.stringify([])); // Clear local storage
+        window.dispatchEvent(new CustomEvent('update-wishlist-count')); // Dispatch event
+    }
 };
 
 const addToWishlist = async (product) => {
