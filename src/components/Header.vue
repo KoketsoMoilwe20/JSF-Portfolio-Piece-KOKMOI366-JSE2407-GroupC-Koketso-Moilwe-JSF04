@@ -24,8 +24,13 @@
                 <!-- Navigation menu, visibility controlled by isNavbarOpen -->
                 <div :class="['navbar-menu', { 'navbar-menu-hidden': !isNavbarOpen }]" id="navbar-dropdown">
                     <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="/wishlist" class="nav-link">Wishlist</a>
+                        <li class="nav-item wishlist-item">
+                            <a href="/wishlist" class="wishlist-link">
+                <div v-if="wishlistCount" class="wishlist-badge">{{ wishlistCount }}</div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="wishlist-icon">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 016.364 6.364L12 18.364l-7.682-7.682a4.5 4.5 0 010-6.364z" />
+                </svg>
+              </a>
                         </li>
                         <li class="nav-item cart-item">
                             <a href="/cart" class="cart-link">
@@ -58,13 +63,14 @@
 </template>
 
 <script setup>
-    import {ref, onMounted} from 'vue';
+    import {ref, onMounted, onUnmounted} from 'vue';
     import { useRouter } from 'vue-router';
 
     const router = useRouter();
     const isNavbarOpen = ref(false);
     const isLoggedIn = ref(false);
     const cartCount = ref(0);
+    const wishlistCount = ref(0);
     const comparisonCount = ref(0);
 
     const toggleNavbar = () => {
@@ -80,6 +86,11 @@
         cartCount.value = cart.reduce((total, item) => total + item.quantity, 0);
     };
 
+    const updateWishlistCount = () => {
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  wishlistCount.value = wishlist.length;
+};
+
     const updateComparisonCount = () => {
         const comparison = JSON.parse(localStorage.getItem('comparison')) || [];
         comparisonCount.value = comparison.length;
@@ -89,6 +100,7 @@
         //clearing the JWT from local storage
         localStorage.removeItem('token');
         localStorage.removeItem('cart'); //clear the cart data from local storage
+        localStorage.removeItem('wishlist');
 
         //Reset
         isLoggedIn.value = false;
@@ -101,14 +113,21 @@
     onMounted(() => {
         checkLoginStatus();
         updateCartCount();
+        updateWishlistCount();
         updateComparisonCount();
 
         //Listen for custom event to update the cart count
         window.addEventListener('update-cart-count', updateCartCount);
+        window.addEventListener('update-wishlist-count', updateWishlistCount);
         window.addEventListener('update-comparison-count', updateComparisonCount);
     });
 
-    window.addEventListener('storage', updateCartCount);
+    onUnmounted(() => {
+    // Clean up event listeners
+    window.removeEventListener('update-cart-count', updateCartCount);
+    window.removeEventListener('update-wishlist-count', updateWishlistCount);
+    window.removeEventListener('update-comparison-count', updateComparisonCount);
+});
 </script>
 
 <style scoped>
