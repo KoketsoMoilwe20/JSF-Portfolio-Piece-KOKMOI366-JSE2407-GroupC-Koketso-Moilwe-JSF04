@@ -1,12 +1,12 @@
 <template>
     <div class="cart">
         <h2>Your Shopping Cart</h2>
-        <div v-if="cartItems.length === 0">
+        <div v-if="state.cartItems.length === 0">
             Your cart is empty...
         </div>
 
     <div v-else>
-        <div class="cart-item" v-for="item in cartItems" :key="item.id">
+        <div class="cart-item" v-for="item in state.cartItems" :key="item.id">
             <img :src="item.image" alt="Product Image" class="cart-item-image">
             <div class="cart-item-info">
                 <h3>{{ item.title }}</h3>
@@ -22,7 +22,7 @@
             </div>
         </div>
             <div class="cart-summary">
-                <h3>Total: ${{ totalCost }}</h3>
+                <h3>Total: ${{ state.totalCost }}</h3>
                 <button @click="clearCart">Clear Cart</button>
             </div>
         </div>
@@ -30,65 +30,14 @@
 </template>
 
 <script setup>
-    import {ref, onMounted} from 'vue';
-    import { jwtDecode } from 'jwt-decode';
+    import {onMounted} from 'vue';
+    import store from '../store';
 
-    const cartItems = ref([]);
-    const totalCost = ref(0);
-    let userId = null;
-
-    //Decoding the JWT to get the userId
-    const decodeUserId = () => {
-        const token = localStorage.getItem('token');
-
-        if(token) {
-            const decoded = jwtDecode(token);
-            userId = decoded.userId; 
-        }
-    };
-    
-    const loadCart = () => {
-        cartItems.value = JSON.parse(localStorage.getItem('cart')) || [];
-        updateTotalCost();
-    };
-
-    const updateQuantity = (item, newQuantity) =>  {
-        if (newQuantity <= 0) {
-            removeFromCart(item);
-
-        } else {
-            const cart = JSON.parse(localStorage.getItem('cart'));
-            const updatedCart = cart.map(cartItem => cartItem.id === item.id ? {...cartItem, quantity: newQuantity} : cartItem);
-            localStorage.setItem('cart', JSON.stringify(updatedCart));
-            loadCart();
-
-            window.dispatchEvent(new CustomEvent('update-cart-count'));
-        }
-    };
-
-    const removeFromCart = (item) => {
-        const cart = JSON.parse(localStorage.getItem('cart'));
-        const updatedCart = cart.filter(cartItem => cartItem.id !== item.id);
-        localStorage.setItem('cart', JSON.stringify(updatedCart));
-        loadCart();
-
-        window.dispatchEvent(new CustomEvent('update-cart-count'));
-    };
-
-    const clearCart = () => {
-        localStorage.removeItem('cart');
-        loadCart();
-
-        window.dispatchEvent(new CustomEvent('update-cart-count'));
-    };
-
-    const updateTotalCost = () => {
-        totalCost.value = cartItems.value.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
-    }
+    const { state, updateQuantity, removeFromCart, clearCart} = store;
 
     onMounted(() => {
-        decodeUserId();
-        loadCart();
+        store.decodeUserId();
+        store.loadCart();
     })
 </script>
 
