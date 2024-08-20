@@ -108,6 +108,9 @@
     comparison.push(product.value);
     localStorage.setItem('comparison', JSON.stringify(comparison));
     alert('Product added to comparison list!');
+
+    // Dispatch a custom event to update the comparison count
+    window.dispatchEvent(new CustomEvent('update-comparison-count'));
 };
 
 
