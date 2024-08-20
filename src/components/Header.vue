@@ -211,12 +211,15 @@
 }
 
 .cart-item,
+.wishlist-item,
 .comparison-item {
     display: block;
     position: relative;
+    margin-right: 1rem;
 }
 
 .cart-badge,
+.wishlist-badge,
 .comparison-badge {
     position: absolute;
     top: -0.5rem;
@@ -232,7 +235,7 @@
     font-size: 0.75rem;
 }
 
-.cart-icon, .comparison-icon {
+.cart-icon, .wishlist-icon, .comparison-icon {
     width: 1.5rem;
     height: 1.5rem;
     color: white;
