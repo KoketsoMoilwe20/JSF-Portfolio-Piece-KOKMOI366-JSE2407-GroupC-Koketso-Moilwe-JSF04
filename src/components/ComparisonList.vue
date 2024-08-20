@@ -8,7 +8,7 @@
          </button>
 
         <!-- Display message if comparison list is empty -->
-         <div v-if="comparedProducts.length ===0" class="empty-message">
+         <div v-if="state.comparisonList && state.comparisonList.length === 0" class="empty-message">
             No products added to the comparison list
          </div>
 
@@ -26,7 +26,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="product in comparedProducts" :key="product.id">
+                <tr v-for="product in state.comparisonList" :key="product.id">
                   <td>
                     <img :src="product.image" alt="Product Image" class="product-image">
                     <h3 class="product-title">{{ product.title }}</h3>
@@ -43,7 +43,7 @@
         
 
         <!-- Clear the comparison list -->
-         <button v-if="comparedProducts.length > 0" @click="clearComparison" class="clear-button">
+         <button v-if="state.comparisonList && state.comparisonList.length > 0" @click="clearComparison" class="clear-button">
             Clear Comparison
          </button>
 
@@ -51,11 +51,10 @@
 </template>
 
 <script setup>
-    import { ref } from 'vue';
-import { useRouter } from 'vue-router';
+  import { useRouter } from 'vue-router';
+  import store from '../store';
 
-    // Array to hold the products being displayed
-    const comparedProducts = ref([]);
+  const {state, removeFromComparison, clearComparison} = store;
 
     // Access Router
     const router = useRouter();
@@ -65,28 +64,6 @@ import { useRouter } from 'vue-router';
       router.back();
     };
 
-    // Load comparison list from localStorage
-    const loadComparisonList = () => {
-        comparedProducts.value = JSON.parse(localStorage.getItem('comparison')) || [];
-    };
-
-    //Removing a product from the comparison list
-    const removeFromComparison = (productId) => {
-        const updatedComparison = comparedProducts.value.filter(product => product.id !== productId);
-        localStorage.setItem('comparison', JSON.stringify(updatedComparison));
-        loadComparisonList();
-    }
-
-    //Clear comparison list
-    const clearComparison = () => {
-    localStorage.removeItem('comparison');
-    loadComparisonList();
-    };
-
-    //Loading comparison list on component mount
-    loadComparisonList();
-
-    
 </script>
 
 <style scoped>
