@@ -28,6 +28,13 @@
                 <button @click.stop="addToCompare(product)" class="compare-button">
                   <i class="fas fa-balance-scale"></i> Compare
                 </button>
+
+                <!-- Wishlist button (Heart Icon) -->
+                <div @click.stop="addToWishlist(product)" class="wishlist-icon" :class="{ 'wishlisted': wishlistedProducts.has(product.id) }">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="heart-icon">
+        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+    </svg>
+</div>
             </div>
         </div>
     </div>
@@ -45,6 +52,7 @@
     const selectedCategory = ref('');
     const sortOption = ref('');
     const appliedFilters = ref({});
+    const wishlistedProducts = ref(new Set());
 
 
     /**
@@ -149,6 +157,53 @@
       window.dispatchEvent(event);
     };
 
+    const addToCompare = (product) => {
+    let comparison = JSON.parse(localStorage.getItem('comparison')) || [];
+    
+    // Check if the product is already in the comparison list
+    if (comparison.find(item => item.id === product.id)) {
+        alert('Product is already in the comparison list.');
+        return;
+    }
+
+    // Check if the limit has been reached
+    if (comparison.length >= 5) { // max_comparison can be replaced with a constant or configuration
+        alert('You can only compare up to 5 products.');
+        return;
+    }
+
+    // Add the product to the comparison list
+    comparison.push(product);
+    localStorage.setItem('comparison', JSON.stringify(comparison));
+    alert('Product added to comparison list!');
+
+    // Dispatch a custom event to update the comparison count
+    window.dispatchEvent(new CustomEvent('update-comparison-count'));
+};
+
+
+const addToWishlist = (product) => {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    
+    // Check if the product is already in the wishlist
+    if (wishlist.find(item => item.id === product.id)) {
+        alert('Product is already in your wishlist.');
+        return;
+    }
+
+    wishlist.push(product);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+    // Add the product ID to the wishlistedProducts set
+    wishlistedProducts.value.add(product.id);
+    
+    // Dispatch a custom event to update the wishlist count
+    window.dispatchEvent(new CustomEvent('update-wishlist-count'));
+    
+    alert('Product added to your wishlist!');
+};
+
+
     onMounted(() => {
       fetchProducts();
 
@@ -163,6 +218,9 @@
           category: category || '',
           sortOption: sort || ''
       };
+
+      const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+    wishlistedProducts.value = new Set(wishlist.map(item => item.id));
     });
 
 </script>
@@ -308,6 +366,23 @@
 
 .compare-button:hover {
     background-color: #6D6875;
+}
+
+.wishlist-icon {
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+.heart-icon {
+    width: 24px;
+    height: 24px;
+    fill: #E5989B; /* Color of the heart icon */
+}
+
+.wishlist-icon:hover .heart-icon,
+.wishlist-icon.wishlisted .heart-icon {
+    transform: scale(1.2);
+    fill: #ff6b6b; /* Color on hover */
 }
 
 </style>
