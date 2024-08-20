@@ -3,6 +3,7 @@ import ProductDetails from './components/ProductDetails.vue'
 import Login from './components/Login.vue'
 import Cart from './components/Cart.vue'
 import ComparisonList from './components/ComparisonList.vue'
+import Wishlist from './components/Wishlist.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -33,6 +34,12 @@ const routes = [
       name: 'ComparisonList',
       component: ComparisonList,
       meta: {requiresAuth: true} //protect comparison route
+    },
+    {
+      path: '/wishlist',
+      name: 'Wishlist',
+      component: Wishlist,
+      meta: {requiresAuth: true}
     }
 ]
 
