@@ -59,7 +59,7 @@ ZenCart is designed to showcase a variety of products and offer users the abilit
 
 # Hosted Application
 
-You can view the live application at: https://jsf-portfolio-piece-kokmoi-366-jse-2407-group-c-koke-e4gwbkl8e.vercel.app/?searchQuery=&category=&sortOption=
+You can view the live application at: https://jsf-portfolio-piece-kokmoi-366-jse-2407-group-c-koke-e4gwbkl8e.vercel.app/?searchQuery=&category=&sortOption= (Please note that other pages are not displaying i could not figure out why as there was no time left, but they all display perefectly on localhost link: http://localhost:5180/)
 
 # YouTube Video
 
