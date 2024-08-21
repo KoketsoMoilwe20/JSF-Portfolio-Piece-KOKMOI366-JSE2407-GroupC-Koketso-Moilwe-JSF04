@@ -1,6 +1,9 @@
 <template>
    <div class="wishlist-page">
-        <h2>My Wishlist</h2>
+    <button @click="goBack" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon-back" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg> Back
+        </button>
+        <h2 class="cool-text">My Wishlist</h2>
         <Filter @filter-sort-change="handleFilterSortChange" :appliedFilters="appliedFilters" />
         <button @click="clearWishlist" class="clear-all-button">Clear All</button>
         <div v-if="filteredWishlist.length === 0">
@@ -11,8 +14,12 @@
                 <img :src="product.image" class="wishlist-image">
                 <h3>{{ product.title }}</h3>
                 <p>${{ product.price }}</p>
-                <button @click="removeFromWishlist(product.id)">Remove</button>
-                <button @click="addToCart(product)">Add to Cart</button>
+                <button @click="removeFromWishlist(product.id)" class="icon-button remove-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-remove" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+                <button @click="addToCart(product)" class="icon-button add-to-cart-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon-cart" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.6 3M7 13h10l1.6-8H5.2M16 16a2 2 0 11-4 0M7 16a2 2 0 11-4 0"/></svg>
+                </button>
                 <button @click="viewProductDetails(product.id)" class="view-details-button">View Details</button>
             </div>
         </div>
@@ -31,6 +38,10 @@
     const appliedFilters = ref({});
     const userId = ref('user123'); // In a real app, this would come from authentication
     const allProducts = ref([]);
+
+    const goBack = () => {
+        router.back();
+    };
 
     const filteredWishlist = computed(() => {
     return wishlist.value.filter(product => {
@@ -140,11 +151,19 @@ watch(wishlist, async () => {
     align-items: flex-start;
 }
 
+.cool-text {
+    font-family: 'Poppins', sans-serif;
+    color: #6D6875;
+    font-size: 2rem;
+    margin: 0.5rem 0;
+}
+
 .wishlist-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1rem;
     margin-top: 1rem;
+    width: 100%; /* Ensure the grid spans full width */
 }
 
 .wishlist-item {
@@ -196,4 +215,28 @@ watch(wishlist, async () => {
     background-color: #E5989B;
 }
 
+.icon-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.icon-back, .icon-remove, .icon-cart {
+    width: 1.5rem;
+    height: 1.5rem;
+    stroke: #6D6875;
+    transition: stroke 0.3s;
+}
+
+.icon-button:hover .icon-back, 
+.icon-button:hover .icon-remove, 
+.icon-button:hover .icon-cart {
+    stroke: #B5838D;
+}
+
+.back-button {
+    align-self: flex-start;
+    margin-bottom: 1rem;
+}
 </style>
