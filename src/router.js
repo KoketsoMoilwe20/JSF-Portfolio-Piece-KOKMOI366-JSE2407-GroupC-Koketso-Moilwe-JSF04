@@ -40,7 +40,7 @@ const routes = [
       name: 'Wishlist',
       component: Wishlist,
       meta: {requiresAuth: true}
-    }
+    },
 ]
 
 const router = createRouter({
