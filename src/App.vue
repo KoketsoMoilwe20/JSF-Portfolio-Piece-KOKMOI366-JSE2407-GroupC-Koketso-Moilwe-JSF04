@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header v-if="isAuthenticated"/>
+    <Header />
     <router-view></router-view>
   </div>
   
