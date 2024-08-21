@@ -22,7 +22,7 @@
                   </span>
                   <span>({{ product.rating.count }})</span>
                 </div>
-                <button @click.stop="addToCart(product)">Add To Cart</button>
+                <button @click.stop="addToCart(product)" class="add-to-cart-button">Add To Cart</button>
 
                 <!-- Compare button -->
                 <button @click.stop="addToCompare(product)" class="compare-button">
@@ -44,6 +44,7 @@
     import {ref, onMounted, computed} from 'vue';
     import { useRoute, useRouter } from 'vue-router';
     import Filter from './Filter.vue';
+    import Header from './Header.vue';
 
     // Reactive state variables
     const products = ref([]);
@@ -304,20 +305,29 @@ const addToWishlist = (product) => {
   color: #000;
 }
 
-/* .product-card button {
-  background-color: #4caf50; 
+.add-to-cart-button {
+  background-color: #6D6875; /* Muted purple color */
   color: white;
   border: none;
-  border-radius: 0.375rem; 
-  padding: 0.5rem 1rem;
+  border-radius: 0.5rem; /* Slightly more rounded for a softer look */
+  padding: 0.75rem 1.5rem; /* Generous padding for a comfortable button size */
+  font-size: 1rem; /* Clear and readable font size */
+  font-weight: bold;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
   margin-top: auto;
+  width: 100%; /* Full width for a strong, uniform appearance */
 }
 
-.product-card button:hover {
-  background-color: #45a049; 
-} */
+.add-to-cart-button:hover {
+  background-color: #E5989B; /* Softer, warmer color on hover */
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.add-to-cart-button:active {
+  transform: translateY(0); /* Reset the lift effect on click */
+}
 
 .ratings {
     display: flex;
